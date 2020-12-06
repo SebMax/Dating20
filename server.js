@@ -18,7 +18,9 @@ mongoose.connect(db, { useNewUrlParser: true})
 //app.use(expressLayouts);
 
 
+
 //Bodyparser
+app.use(bodyparser.urlencoded({ extended: false }))
 app.use(bodyparser.json());
 
 

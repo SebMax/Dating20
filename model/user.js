@@ -1,5 +1,4 @@
 const { update } = require('./userSchema');
-const User = require('./userSchema');
 const userSchema = require('./userSchema');
 
 class userModel {
