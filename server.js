@@ -1,9 +1,12 @@
 const express = require('express');
-const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
+const session = require('express-session');
+const passport = require('passport');
 
 const app = express();
+
+//EJS
 app.set('view engine', 'ejs');
 
 //DB config
@@ -14,14 +17,21 @@ mongoose.connect(db, { useNewUrlParser: true})
     .then(() => console.log('MongoDB connected..'))
     .catch(err => console.log(err)); 
 
-//Ejs
-//app.use(expressLayouts);
-
-
+//Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Bodyparser
 app.use(bodyparser.urlencoded({ extended: false }))
 app.use(bodyparser.json());
+
+//Express session
+app.use(
+    session({
+      secret: 'secret',
+      resave: true,
+      saveUninitialized: true
+}));
 
 
 //Routes

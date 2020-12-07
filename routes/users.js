@@ -7,7 +7,7 @@ const userController = require('../controllers/userController');
 const controller = new userController(new userModel);
 
 //Laver en bruger
-router.post('/', controller.createUser);
+router.post('/', controller.createUser); 
 
 //Finder en bruger
 router.get('/:id', controller.getOneUser);

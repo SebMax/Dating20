@@ -15,8 +15,8 @@ class userController {
             gender : req.body.gender
         }); 
         
-        let result = await this.userModel.createUser(newUser)
-        res.send(result); 
+        await this.userModel.createUser(newUser)
+        res.render('../views/oprettet'); 
     }
 
     deleteUser = async (req,res) => {
