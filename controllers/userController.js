@@ -19,33 +19,10 @@ class userController {
         res.render('../views/oprettet'); 
     }
 
-    deleteUser = async (req,res) => {
-        let result = await this.userModel.deleteUser(req.params.id);
-        res.send(result);
-    }
-
-    getOneUser = async (req, res) => {
-        let searchResult = await this.userModel.getOneUser(req.params.id);
-        res.send(searchResult);
-    }
-
-    getAll = async (req, res) => {
-        let searchResult = await this.userModel.getAll();
-        res.json(searchResult);
-    }
-
     updateUser = async (req, res) => {
-        const updateUser = new userSchema ({
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password,
-            age: req.body.age,
-            gender: req.body.gender
-        });
-        let updateResult = await this.userModel.updateUser(updateUser, req.params.id);
-        res.send(updateResult);
-    }
+        await this.userModel.updateUser(req.body, req.session.passport.user); 
+    };
+};
 
-}
 
 module.exports = userController;

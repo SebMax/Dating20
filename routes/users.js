@@ -2,23 +2,26 @@ const express = require('express');
 const router = express.Router();
 const userModel = require('../model/user');
 const userController = require('../controllers/userController');
-
+const passport = require('passport');
 
 const controller = new userController(new userModel);
 
 //Laver en bruger
 router.post('/', controller.createUser); 
+ 
+//Login 
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/homepage',
+        failureRedirect: '/login',
+    })(req, res, next);
+});
 
-//Finder en bruger
-router.get('/:id', controller.getOneUser);
 
-//Finder alle brugere
-router.get('/', controller.getAll);
-
-//Sletter en bruger 
-router.delete('/:id', controller.deleteUser);
-
-//Opdater en bruger
-router.put('/:id', controller.updateUser);
+//Logud 
+router.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/login');
+});
 
 module.exports = router;
