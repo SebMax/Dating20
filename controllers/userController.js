@@ -3,7 +3,7 @@ const userModel = require('../model/user');
 
 class userController {
     constructor(userModel) {
-        this.userModel = userModel
+        this.userModel = userModel;
     }
 
     createUser = async(req, res) => {

@@ -1,4 +1,4 @@
-const LocalStrategy = require('passport-local').Strategy;
+/* const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 
 const User = require('../model/user');
@@ -37,3 +37,5 @@ module.exports = function(passport) {
         });
       });
 };
+
+*/

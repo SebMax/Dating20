@@ -35,7 +35,7 @@ app.use(
 
 
 //Routes
-app.use('/', require('./routes/index.js'));
+app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 
 
