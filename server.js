@@ -14,7 +14,7 @@ const db = require('./config/keys').MongoURI;
 
 //Forbind til mongo
 mongoose.connect(db, { useNewUrlParser: true})
-    .then(() => console.log('MongoDB connected..'))
+    .then(() => console.log('MongoDB connected on port 5000..'))
     .catch(err => console.log(err)); 
 
 //Passport middleware

@@ -15,15 +15,31 @@ const userSchema = new mongoose.Schema({
     },
     age: {
         type: Number,
-        required: false
+        required: true
     },
     gender: {
         type: String,
-        required: false
-    }    
+        required: true
+    },
+    liked: {
+        type: Array,
+        required: true
+    },
+    hasLikedMe: {
+        type: Array,
+        required: true
+    },
+    myMatches: {
+        type: Array,
+        required: true
+    },
+    disliked: {
+        type: Array,
+        required: true
+    }
 });
 
-const User = mongoose.model('users', userSchema);
+const user = mongoose.model('users', userSchema);
 
 
-module.exports = User;
+module.exports = user;

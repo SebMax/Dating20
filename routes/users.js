@@ -7,21 +7,9 @@ const passport = require('passport');
 const controller = new userController(new userModel);
 
 //Laver en bruger
-router.post('/', controller.createUser); 
+router.post('/register', controller.createUser); 
+//Opdater bruger
+router.post('/update', controller.updateUser);
  
-//Login 
-router.post('/login', (req, res, next) => {
-    passport.authenticate('local', {
-        successRedirect: '/homepage',
-        failureRedirect: '/login',
-    })(req, res, next);
-});
-
-
-//Logud 
-router.get('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/login');
-});
 
 module.exports = router;

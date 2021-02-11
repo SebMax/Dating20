@@ -1,4 +1,4 @@
-const userSchema = require('../model/userSchema');
+const user = require('../model/userSchema');
 const userModel = require('../model/user');
 
 class userController {
@@ -7,20 +7,25 @@ class userController {
     }
 
     createUser = async(req, res) => {
-        let newUser = new userSchema({
+        let newUser = new user({
             name : req.body.name,
             email : req.body.email,
             password : req.body.password,
             age : req.body.age,
-            gender : req.body.gender
+            gender : req.body.gender,
+            liked : [],
+            disliked : [],
+            hasLikedMe : [],
+            myMatches : []
         }); 
         
         await this.userModel.createUser(newUser)
-        res.render('../views/oprettet'); 
+        res.render('../views/login'); 
     }
 
     updateUser = async (req, res) => {
-        await this.userModel.updateUser(req.body, req.session.passport.user); 
+        await this.userModel.updatedUser(req.body, req.session.passport.user);
+        res.redirect('/profil') 
     };
 };
 

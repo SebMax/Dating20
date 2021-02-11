@@ -9,14 +9,23 @@
 
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFE8E8;">
         <a class="navbar-brand">Daters</a>
-        <a class="navbar-brand" href="/homepage">Startside</a>
         <a class="navbar-brand" href="/profil">Profil</a>
         <a class="navbar-brand" href="/matches">Matches</a>
-        <a class="navbar-brand" href="/login">Logud</a>
+        <a class="navbar-brand" href="/swiping">Swipe</a>
+        <input type="button" onclick="location.href='/logout';" value="Log Ud" class="navbar-brand">
     </nav>
 
     <h1>Matches</h1>
-    
+    <% for(const match of matches) {%>
+        <div class="match">
+            <p>Navn: <%= match.name %></p>
+            <p>Køn: <%= match.age %></p>
+            <p>Age: <%= match.age %></p>
+        </div>
+        <a href="/matches/unmatch/<%= match._id %>"><button>Fjern Match</button></a>
+    <br>
+    <br>
+    <% } %>
     
 
 

@@ -1,29 +1,58 @@
-const User = require('./userSchema');
+const user = require('./userSchema');
 
 class userModel {
 
-    async createUser(user) {
-      return User.create(user);     
+    async createUser(newAccount) {
+      return user.create(newAccount);     
     }
     
-    async deleteUser(id) {
-      return User.findByIdAndDelete(id);
+    async removeUser(id) {
+      return user.findByIdAndDelete(id);
     }
 
     async getOneUserByEmail(email) {
-      return User.findOne({email: email}).exec();
+      return user.findOne({email: email}).exec();
     }
 
     async getAll() {
-      return User.find({}, '_id').exec();
+      return user.find({}, '_id').exec();
     }
 
     async getOneUserById(id) {
-      return await User.findById(id).exec();
+      return await user.findById(id).exec();
     }
 
-    async updateUser(update, id) {
-      return User.findByIdAndUpdate(id, update);
+    async updatedUser(update, id) {
+      return user.findByIdAndUpdate(id, update);
+    }
+
+    async getLikedUsersByID(id) {
+      return user.findById(id, 'liked').exec();
+    }
+
+    async matchedUsers(id, userID) {
+      await user.findByIdAndUpdate(id, {$push: {myMatches: userID}});
+      return user.findByIdAndUpdate(userID, {$push: {myMatches: id}});
+    }
+
+    async unmatchUsers(id, userID) {
+      return user.findByIdAndUpdate(userID, {$pull: {myMatches: id}});
+    }
+
+    async likeOtherUsers(id, userID) {
+      return user.findByIdAndUpdate(userID, {$push: {liked: id}});
+    }
+
+    async getLikesFromUsers(id, userID) {
+      return user.findByIdAndUpdate(id, {$push: {hasLikedMe: userID}});
+    }
+
+    async dislikeOtherUsers(id, userID) {
+      return user.findByIdAndUpdate(userID, {$push: {disliked: id}});
+    }
+
+    async getDislikes(id) {
+      return user.findById(id, 'disliked').exec();
     }
 
 }

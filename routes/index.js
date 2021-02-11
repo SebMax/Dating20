@@ -5,6 +5,7 @@ const userModel = require('../model/user');
 const mainController = require('../controllers/mainController');
 const passport = require('passport');
 const mongoose = require('mongoose');
+const userController = require('../controllers/userController');
 
 const controller = new mainController(new userModel);
 
@@ -12,34 +13,24 @@ controller.initialize(
     passport,
     email => controller.userModel.getOneUserByEmail(email),
 );
+
+router.get('/', controller.showHomePage);
+router.get('/login', controller.showLoginPage);
+router.get('/profil', controller.showProfile); 
+router.get('/register', controller.showRegister);
+router.get('/logout', controller.logout);
 router.post('/login', passport.authenticate('local', {
     failureRedirect: '/register',
     successRedirect: '/profil',
 }));
-router.get('/homepage', controller.notVerified, controller.showHomePage);
-router.get('/login', controller.verifiedUser, controller.showLoginPage);
-router.get('/profil', controller.notVerified, controller.showProfile);
-router.get('/register', controller.verifiedUser, controller.showRegister);
-router.get('/logout', controller.logout);
 
-/*
-//Startside
-router.get('/', (req, res) => res.render('velkommen')); 
+router.get('/swiping', controller.showMatches);
+router.get('/delete', controller.deleteUser);
+router.get('/matches', controller.getMatches);
+router.get('/matches/unmatch/:id', controller.unmatch);
+router.get('/swiping/dislikeOtherUsers/:id', controller.dislikeOthers);
+router.get('/swiping/likeOtherUsers/:id', controller.like);
+router.get('/swiping/match/:id', controller.match);
 
-//Login
-router.get('/login', (req, res) => res.render('login'));
-
-//Opret bruger
-router.get('/register', (req, res) => res.render('register'));
-
-//Homepage
-router.get('/homepage', (req, res) => res.render('homepage'));
-
-//Profil
-router.get('/profil', (req, res) => res.render('profil'));
-
-//Matches
-router.get('/matches', (req, res) => res.render('matches'));
-*/
 
 module.exports = router; 
